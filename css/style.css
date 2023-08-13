@@ -1,0 +1,608 @@
+@charset "utf-8";
+
+/* =============================
+変数の宣言
+=============================== */
+
+:root {
+    --base:#fff;
+    --accent:#FFB84E;
+    --main:#208D62;
+    --text:#333;
+}
+
+/* =============================
+共通設定
+=============================== */
+html{
+    scroll-padding-top:150px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Kiwi Maru', sans-serif;
+    color: var(--text);
+
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--base);
+}
+
+img {
+    max-width: 100%;
+    vertical-align: bottom;
+}
+
+.wrapper {
+    max-width: 1000px;
+    padding: 0 16px;
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+}
+
+.grid {
+    display: grid;
+    place-content: center;
+    place-items: center;
+    gap: 30px;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+.sec__title {
+    font-size: calc(24 / 16 * 1rem);
+    margin-bottom: 20px;
+}
+
+.contents__txt {
+    width: calc(230 / 358 * 100%);
+    grid-area: 2 / 1;
+}
+
+.contents__img {
+    width: calc(230 / 358 * 100%);
+    grid-area: 1 / 1;
+}
+
+.white {
+    color: var(--base);
+}
+
+.bd {
+    background-image: linear-gradient(to bottom,transparent , transparent 80%, var(--accent) 80%, var(--accent) 100%);
+}
+
+/* ふわっとロード */
+
+.load-fade {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 1.5s;
+}
+
+.load-fade.is-show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ふわっとスクロール */
+.scroll-up {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(50px);
+    transition:all 1.5s;
+}
+
+.scroll-up.is-show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
+#loading {
+    display: none;
+}
+
+.scroll_prevent {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
+}
+
+/* ==========================
+PC版
+============================= */
+
+
+@media (min-width:769px) {
+    section {
+        margin-bottom: 100px;
+    }
+
+    .sec__title {
+        font-size: calc(32 / 16 * 1rem);
+    }
+    
+    /* 手書き風アニメーション */
+    #loading {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        transition: all 1s;
+        background-color: var(--main);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index:999;
+    }
+    #loading.loaded {
+        opacity: 0;
+        visibility: hidden;
+    }
+    
+    #sample {
+    
+        width: 50%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    
+    }
+    
+    #base path {
+        fill:#fff; /* 塗りの色 */
+    }
+    
+    #mask path {
+        fill:none; /* 塗りの色 */
+        stroke:#ffffff; /* 線の色 */
+        stroke-width:10px; /* 線幅 */
+        stroke-linecap:round; /* 線端の形状 */
+        stroke-linejoin:round; /* 角の形状 */
+    }
+}
+
+/* =============================
+header
+=============================== */
+
+header {
+    background-color: var(--main);
+    position: sticky;
+    top: 0;
+    z-index: 998;
+}
+
+header .grid {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+}
+
+.header__logo {
+    width: 250px;
+    align-self: center;
+    font-size: 0;
+}
+
+/* =============================
+.menu-btn
+=============================== */
+
+.menu-btn {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    grid-column: 3/4;
+}
+
+.menu-btn-bar {
+    display: inline-block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--base);
+    position: absolute;
+    transition:all .5s;
+    left: 25%;
+}
+
+.menu-btn-bar:nth-child(1) {
+    position: absolute;
+    top: 25%;
+}
+
+.menu-btn-bar:nth-child(2) {
+    position: absolute;
+    top: 50%;
+}
+
+.menu-btn-bar:nth-child(3) {
+    position: absolute;
+    top: 75%;
+}
+
+/* .active付与状態 */
+.menu-btn-bar.active:nth-child(1) {
+    transform:translateX(-50%);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+}
+
+.menu-btn-bar.active:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-btn-bar.active:nth-child(3) {
+    transform:translateX(-50%);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 50%;
+}
+
+/* =============================
+.gnav
+=============================== */
+.gnav {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: var(--main);
+    transition: all .5s;
+    z-index:997;
+    display: grid;
+    place-content: center;
+}
+
+/* .active付与状態 */
+.gnav.active {
+    left: 0;
+}
+
+.gnav__list {
+    list-style-type: none;
+    cursor: pointer;
+    color: var(--base);
+    display: grid;
+    place-content: center;
+    gap: 1.5rem;
+}
+
+.gnav__item {
+    font-size: 1.5rem;
+}
+
+.gnav__link:hover {
+    color: var(--accent);
+}
+
+
+/* =============================
+.mv
+=============================== */
+.mv {
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.hero {
+    grid-area: 1 / -1;
+}
+
+.hero__txt {
+    grid-area: 1 / -1;
+    writing-mode: vertical-rl;
+    font-size: calc(14 / 16 * 1rem);
+    font-weight: normal;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+}
+
+/* ==========================
+PC版
+============================= */
+
+@media (min-width:769px) {
+    .mv {
+        margin-bottom: 100px;
+    }
+
+    .hero__txt {
+        font-size: calc(60 / 16 * 1rem);
+    }
+}
+
+/* =============================
+.question 
+=============================== */
+
+.question .sec__title::before { 
+    content:'ABOUT';
+    font-size: 72px;
+    color: var(--main);
+    opacity: 0.5;
+    position: absolute;
+    z-index:-1;
+    top: -30px;
+    font-weight: normal;
+}
+
+/* ==========================
+PC版
+============================= */
+
+@media (min-width:769px) {
+    .question .grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "lead image"
+            "desc image";
+        place-content: start;
+        place-items: start;
+    }
+
+    .question .contents {
+        display: contents;
+    }
+
+    .question .sec__title {
+        grid-area: lead;
+        font-size: (32 / 16 * 1rem);
+        align-self: end;
+        margin-bottom: 0;
+    }
+
+    .question .contents__txt {
+        grid-area: desc;
+        width: auto;
+    }
+
+    .question .contents__img {
+        grid-area: image;
+        width: 100%
+       
+    }
+}
+
+/* =============================
+.message
+=============================== */
+
+/* ==========================
+PC版
+============================= */
+
+@media (min-width:769px) {
+    .message .grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "image lead"
+            "image desc";
+        place-content: start;
+        place-items: start;
+    }
+
+    .message .contents {
+        display: contents;
+    }
+
+    .message .sec__title {
+        grid-area: lead;
+        font-size: (32 / 16 * 1rem);
+        align-self: end;
+        margin-bottom: 0;
+    }
+
+    .message .contents__txt {
+        grid-area: desc;
+        width: auto;
+    }
+
+    .message .contents__img {
+        grid-area: image;
+        width: 100%
+       
+    }
+}
+
+
+/* =============================
+.recommend
+=============================== */
+
+.recommend {
+    background-color: var(--main);
+    padding: 30px 0;
+    border-radius: 30px;
+}
+.recommend .contents__txt {
+    text-align: center;
+}
+
+/* ==========================
+PC版
+============================= */
+
+@media (min-width:769px) {
+
+    .recommend {
+        width: calc(968 / 1168 * 100%);
+        margin: 0 auto 100px;
+    }
+
+    .recommend .grid {
+        grid-template-areas: 
+            "head head"
+            "contents1 contents2";
+    }
+
+    .recommend .sec__title {
+        grid-area: head;
+    }
+
+    .contents__notime {
+        grid-area: contents1;
+    }
+
+    .contents__vege {
+        grid-area: contents2;
+    }
+}
+
+/* =============================
+.menu
+=============================== */
+
+.menu-title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* ==========================
+PC版
+============================= */
+
+@media (min-width:769px) {
+
+    
+    .menu-grid {
+        display: grid;
+        grid-template-areas: 
+            "head head head"
+            "contents1 contents2 contents3";
+    }
+
+    .menu .sec__title {
+        grid-area: head;
+    }
+
+    .green {
+        grid-area: contents1;
+    }
+
+    .mango {
+        grid-area: contents2;
+    }
+
+    .berry {
+        grid-area: contents3;
+    }
+
+}
+
+/* =============================
+.tryit
+=============================== */
+
+.tryit .contents__txt {
+    text-align: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.course-head {
+    display: inline-block;
+    color: var(--base);
+    font-weight: normal;
+    font-size: 1rem;
+    padding: 16px 24px;
+    background-color: var(--main);
+    border-radius: 1000px;
+}
+
+.course-name {
+    font-size: calc(30 / 16 * 1rem);
+}
+
+.course-desc {
+    font-size: calc(24 / 16 * 1rem);
+}
+
+.price {
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 60px;
+}
+
+/* ==========================
+PC版
+============================= */
+
+@media (min-width:769px) {
+    .tryit .contents {
+        display: contents;
+    }
+
+    .tryit-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "img txt";
+    }
+
+    .tryit .contents__txt {
+        grid-area: txt;
+    }
+
+    .tryit .contents__img {
+        grid-area: img;
+        width: 100%;
+    }
+}
+
+.contact-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--accent);
+    border-radius: 100px;
+    color: var(--text);
+}
+
+
+/* =============================
+footer
+=============================== */
+
+footer {
+    background-color: var(--main);
+    padding: 64px;
+}
+
+.copywrite {
+    color: var(--base);
+}
+
+/* ==========================
+PC版
+============================= */
+
+@media (min-width:769px) {
+    .footer-grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        place-content: space-between;
+    }
+
+    .footer__logo {
+        width: 400px;
+    }
+}
